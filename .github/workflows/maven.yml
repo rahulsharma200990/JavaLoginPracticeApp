@@ -27,6 +27,12 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Clean Package
+      run: mvn clean package
+
+    - name:  mvn jib:dockerBuild
+      run: mvn jib:dockerBuild
+    
     - name: Build with Maven
       # run: mvn -B package --file pom.xml
       run: mvn compile jib:dockerBuild -Dimage=my-java-app:latest
