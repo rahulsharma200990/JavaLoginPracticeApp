@@ -32,10 +32,18 @@ jobs:
 
     - name:  mvn jib:dockerBuild
       run: mvn jib:dockerBuild
+
+    - name: Build and push Docker image with Jib
+      run: mvn clean package com.google.cloud.tools:jib-maven-plugin:3.4.5:build -Dimage=docker.io/rahulsharma200990/my-java-login-app:1.0.0
+      env:
+        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          
+
     
-    - name: Build with Maven
-      # run: mvn -B package --file pom.xml
-      run: mvn compile jib:dockerBuild -Dimage=my-java-app:latest
+    # - name: Build with Maven
+    #   # run: mvn -B package --file pom.xml
+    #   run: mvn compile jib:dockerBuild -Dimage=my-java-app:latest
 
 
     # Optional: Uploads the full dependency graph to GitHub to improve the quality of Dependabot alerts this repository can receive
